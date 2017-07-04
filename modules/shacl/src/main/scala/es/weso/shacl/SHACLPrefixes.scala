@@ -32,6 +32,7 @@ object SHACLPrefixes {
   lazy val sh_oneOrMorePath: IRI = sh + "oneOrMorePath"
 
   lazy val sh_class : IRI= sh + "class"
+  lazy val sh_rootClass : IRI= sh + "rootClass"
   lazy val sh_datatype : IRI= sh + "datatype"
   lazy val sh_nodeKind : IRI= sh + "nodeKind"
   lazy val sh_minCount : IRI= sh + "minCount"

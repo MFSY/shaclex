@@ -95,6 +95,10 @@ case class RDFFromWeb() extends RDFReader {
     throw new Exception(s"Undefined hasSHACL at RDFFromWeb. Node: $n Class: $c") 
   }
 
+  override def hasSHACLRootClass(n: RDFNode, c: RDFNode): Boolean = {
+    throw new Exception(s"Undefined hasSHACL at RDFFromWeb. Node: $n Class: $c")
+  }
+
   def model2triples(model: Model): Set[RDFTriple] = {
     model.listStatements().map(st => statement2triple(st)).toSet
   }

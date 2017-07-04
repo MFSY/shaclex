@@ -290,6 +290,7 @@ case class Validator(schema: Schema) extends LazyLogging {
       case Or(shapes)  => or(shapes)(attempt)(node)
       case Not(shape)  => not(shape)(attempt)(node)
       case ClassComponent(cls) => classComponentChecker(cls)(attempt)(node)
+      case RootClassComponent(cls) => rootClassComponentChecker(cls)(attempt)(node)
       case HasValue(v) => hasValue(v)(attempt)(node)
       case In(ls) => inChecker(ls)(attempt)(node)
       case _           => unsupportedNodeChecker(s"Node constraint: $c")(attempt)(node)
@@ -347,6 +348,17 @@ case class Validator(schema: Schema) extends LazyLogging {
         attempt,
         classError(node, cls, attempt),
         s"$node is in class $cls")
+    } yield t
+  }
+
+  def rootClassComponentChecker(cls: RDFNode): NodeChecker = attempt => node => {
+    logger.debug(s"rootclassChecker node: ${node.show} class ${cls.show}")
+    for {
+      rdf <- getRDF
+      t <- condition(rdf.hasSHACLRootClass(node, cls),
+        attempt,
+        rootClassError(node, cls, attempt),
+        s"$node is a subclass of $cls")
     } yield t
   }
 

@@ -101,6 +101,13 @@ case class RDFAsJenaModel(model: Model)
     JenaUtils.hasClass(nJena,cJena,model)
   }
 
+  override def hasSHACLRootClass(n: RDFNode, c: RDFNode): Boolean = {
+    val subClassJena : JenaRDFNode = JenaMapper.rdfNode2JenaNode(n, model)
+    val superClasscJena : JenaRDFNode = JenaMapper.rdfNode2JenaNode(c, model)
+    JenaUtils.hasSubClass(subClassJena,superClasscJena,model)
+  }
+
+
 
   override def getValuesFromPath(node: RDFNode, path: SHACLPath): Seq[RDFNode] = {
     val jenaNode : JenaRDFNode = JenaMapper.rdfNode2JenaNode(node, model)
