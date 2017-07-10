@@ -290,6 +290,7 @@ object RDF2Shacl extends RDFParser with LazyLogging {
   def components: RDFParser[Seq[Component]] =
     anyOf(
       classComponent,
+      rootClassComponent,
       datatype,
       nodeKind,
       minCount, maxCount,
@@ -305,6 +306,7 @@ object RDF2Shacl extends RDFParser with LazyLogging {
 
 
   def classComponent = parsePredicate(sh_class, ClassComponent)
+  def rootClassComponent = parsePredicate(shext_rootClass, RootClassComponent)
 
   def datatype = parsePredicateIRI(sh_datatype, Datatype)
 
